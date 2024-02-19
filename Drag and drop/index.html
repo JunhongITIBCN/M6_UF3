@@ -75,15 +75,19 @@
 </style>
 
 <body>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
     <div class="drop-area">
         <h2>Drag & Drop files</h2>
         <button id="uploadBtn">Upload files</button>
-        <input type="file" name="inputFiles[]" id="input-file" hidden multiple />
+        <form id="uploadForm" method="post" enctype="multipart/form-data">
+            <input type="file" name="inputFiles[]" id="input-file" hidden multiple />
+        </form>
     </div>
     <div id="preview"></div>
     <script src="functions.js"></script>
+
 
 </body>
 

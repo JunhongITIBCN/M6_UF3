@@ -7,6 +7,8 @@ const dragDropText = document.querySelector('h2');
 const button = document.querySelector('button');
 const input = document.querySelector('#input-file');
 const preview = document.querySelector('#preview');
+const form = document.getElementById('uploadForm');
+
 
 // 3. Invalidar l’acció per defecte del drag & drop
 ['dragover', 'dragleave', 'drop'].forEach(evt => {
@@ -37,7 +39,7 @@ dropArea.addEventListener("drop", function (event) {
     Array.from(droppedFiles).forEach(file => {
         // Verificar si el archivo ya existe en el array por su nombre
         const fileExists = filesArray.some(existingFile => existingFile.name === file.name);
-        
+
         // Si el archivo no existe, agrégalo al array
         if (!fileExists) {
             filesArray.push(file);
@@ -52,9 +54,9 @@ dropArea.addEventListener("drop", function (event) {
 
 // 7. Función showFiles
 function showFiles() {
-    preview.innerHTML = '';  
+    preview.innerHTML = '';
     filesArray.forEach((file, index) => {
-        processFile(file, index); 
+        processFile(file, index);
     });
 }
 
@@ -69,7 +71,7 @@ function processFile(file, index) {
     }
 
     let reader = new FileReader();
-    reader.onload = function() {
+    reader.onload = function () {
         const fileURL = reader.result;
         let prev = `<div class="previewImage">
                         <img src="${fileURL}" />
@@ -85,24 +87,35 @@ function processFile(file, index) {
 function removeBtn(index) {
     filesArray.splice(index, 1);
     preview.innerHTML = '';
-    showFiles(); 
+    showFiles();
 }
 
 // 10. Click al botó Upload Files
-button.addEventListener("click", function(e) {
+button.addEventListener("click", function (e) {
     e.preventDefault();
     input.click();
 });
 
 // 11. Gestiona els arxius seleccionats
-input.addEventListener("change", function() {
+input.addEventListener("change", function () {
     const selectedFiles = input.files;
     Array.from(selectedFiles).forEach(file => {
         const fileExists = filesArray.some(existingFile => existingFile.name === file.name);
-        
+
         if (!fileExists) {
             filesArray.push(file);
         }
     });
     showFiles();
+    form.submit();
+});
+// 12. Enviament de archius
+form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const dataTransfer = new DataTransfer();
+    files.forEach(file => {
+        dataTransfer.items.add(file);
+    })
+    input.files = dataTransfer.files;
+    form.submit();
 });
