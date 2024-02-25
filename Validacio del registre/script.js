@@ -1,37 +1,40 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const userNameInput = document.getElementById("name");
-    const emailInput = document.getElementById("mail");
-    const passwordInput = document.getElementById("password");
-    const confirmPasswordInput = document.getElementById("password_conf");
-    const addressInput = document.getElementById("adress");
+    // Obtenir els elements dels camps d'entrada i els missatges d'error
+    const inputNom = document.getElementById("name");
+    const inputCorreu = document.getElementById("mail");
+    const inputContrasenya = document.getElementById("password");
+    const inputConfirmarContrasenya = document.getElementById("password_conf");
+    const inputAdreca = document.getElementById("adress");
 
-    const userNameError = document.getElementById("name-error");
-    const emailError = document.getElementById("mail-error");
-    const passwordError = document.getElementById("password-error");
-    const confirmPasswordError = document.getElementById("password-conf-error");
-    const addressError = document.getElementById("address-error");
+    const errorNom = document.getElementById("name-error");
+    const errorCorreu = document.getElementById("mail-error");
+    const errorContrasenya = document.getElementById("password-error");
+    const errorConfirmarContrasenya = document.getElementById("password-conf-error");
+    const errorAdreca = document.getElementById("address-error");
 
-    userNameInput.addEventListener("focusout", function() {
-        validateField(userNameInput, userNameError, "El nom és obligatori.");
+    // Validar el camp quan es surti d'ell
+    inputNom.addEventListener("focusout", function() {
+        validarCamp(inputNom, errorNom, "El nom és obligatori.");
     });
 
-    emailInput.addEventListener("focusout", function() {
-        validateEmail(emailInput, emailError);
+    inputCorreu.addEventListener("focusout", function() {
+        validarCorreu(inputCorreu, errorCorreu);
     });
 
-    passwordInput.addEventListener("input", function() {
-        validatePassword(passwordInput, passwordError);
+    inputContrasenya.addEventListener("input", function() {
+        validarContrasenya(inputContrasenya, errorContrasenya);
     });
 
-    confirmPasswordInput.addEventListener("input", function() {
-        validateConfirmPassword(confirmPasswordInput, confirmPasswordError);
+    inputConfirmarContrasenya.addEventListener("input", function() {
+        validarConfirmarContrasenya(inputConfirmarContrasenya, errorConfirmarContrasenya);
     });
 
-    addressInput.addEventListener("focusout", function() {
-        validateField(addressInput, addressError, "La direcció és obligatòria.");
+    inputAdreca.addEventListener("focusout", function() {
+        validarCamp(inputAdreca, errorAdreca, "La direcció és obligatòria.");
     });
 
-    function validateField(input, errorElement, errorMessage) {
+    // Funció per validar el camp
+    function validarCamp(input, errorElement, errorMessage) {
         if (input.value.trim() !== "") {
             input.style.background = "green";
             errorElement.innerHTML = "";
@@ -43,9 +46,10 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    function validateEmail(input, errorElement) {
-        const email = input.value.trim();
-        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+    // Funció per validar el correu electrònic
+    function validarCorreu(input, errorElement) {
+        const correu = input.value.trim();
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(correu)) {
             input.style.background = "green";
             errorElement.innerHTML = "";
             return true;
@@ -56,27 +60,28 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    function validatePassword(input, errorElement) {
-        const password = input.value.trim();
+    // Funció per validar la contrasenya
+    function validarContrasenya(input, errorElement) {
+        const contrasenya = input.value.trim();
         const lowerCaseLetters = /[a-z]/;
         const upperCaseLetters = /[A-Z]/;
         const numbers = /[0-9]/;
         const specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
         let errors = [];
     
-        if (password.length < 8 || password.length > 15) {
+        if (contrasenya.length < 8 || contrasenya.length > 15) {
             errors.push("La contrasenya ha de tenir entre 8 i 15 caràcters.");
         }
-        if (!lowerCaseLetters.test(password)) {
+        if (!lowerCaseLetters.test(contrasenya)) {
             errors.push("La contrasenya ha de contenir almenys una lletra minúscula.");
         }
-        if (!upperCaseLetters.test(password)) {
+        if (!upperCaseLetters.test(contrasenya)) {
             errors.push("La contrasenya ha de contenir almenys una lletra majúscula.");
         }
-        if (!numbers.test(password)) {
+        if (!numbers.test(contrasenya)) {
             errors.push("La contrasenya ha de contenir almenys un número.");
         }
-        if (!specialChars.test(password)) {
+        if (!specialChars.test(contrasenya)) {
             errors.push("La contrasenya ha de contenir almenys un caràcter especial.");
         }
     
@@ -91,11 +96,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    function validateConfirmPassword(input, errorElement) {
-        const password = passwordInput.value.trim();
-        const confirmPassword = input.value.trim();
+    // Funció per validar la confirmació de la contrasenya
+    function validarConfirmarContrasenya(input, errorElement) {
+        const contrasenya = inputContrasenya.value.trim();
+        const confirmarContrasenya = input.value.trim();
         
-        if (confirmPassword === password) {
+        if (confirmarContrasenya === contrasenya) {
             input.style.background = "green";
             errorElement.innerHTML = "";
             return true;
@@ -106,19 +112,21 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    function validateForm() {
-        const isUserNameValid = validateField(userNameInput, userNameError, "El nom és obligatori.");
-        const isEmailValid = validateEmail(emailInput, emailError);
-        const isPasswordValid = validatePassword(passwordInput, passwordError);
-        const isConfirmPasswordValid = validateConfirmPassword(confirmPasswordInput, confirmPasswordError);
-        const isAddressValid = validateField(addressInput, addressError, "La direcció és obligatòria.");
+    // Funció per validar el formulari abans de l'enviament
+    function validarFormulari() {
+        const esNomValid = validarCamp(inputNom, errorNom, "El nom és obligatori.");
+        const esCorreuValid = validarCorreu(inputCorreu, errorCorreu);
+        const esContrasenyaValid = validarContrasenya(inputContrasenya, errorContrasenya);
+        const esConfirmarContrasenyaValid = validarConfirmarContrasenya(inputConfirmarContrasenya, errorConfirmarContrasenya);
+        const esAdrecaValid = validarCamp(inputAdreca, errorAdreca, "La direcció és obligatòria.");
         
-        return isUserNameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid && isAddressValid;
+        return esNomValid && esCorreuValid && esContrasenyaValid && esConfirmarContrasenyaValid && esAdrecaValid;
     }
 
-    const form = document.forms["myForm"];
-    form.addEventListener("submit", function(e) {
-        if (!validateForm()) {
+    // Afegir un escoltador d'esdeveniments al formulari per validar abans de l'enviament
+    const formulari = document.forms["myForm"];
+    formulari.addEventListener("submit", function(e) {
+        if (!validarFormulari()) {
             e.preventDefault(); 
         }
     });
