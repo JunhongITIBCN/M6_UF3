@@ -5,32 +5,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validacio del registre</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        form div {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        }
+
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            background-color: #4caf50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 
 <body>
     <form name="myForm" action="/action_page.php" onsubmit="return validateForm()" method="post">
-        <ul>
-            <li>
-                <label for="name">Nom:</label>
-                <input type="text" id="name" name="user_name" />
-            </li>
-            <li>
-                <label for="mail">Correu electrònic:</label>
-                <input type="email" id="mail" name="user_mail" />
-            </li>
-            <li>
-                <label for="password">Contrasenya</label>
-                <input type="pass" id="password" name="user_password" />
-            </li>
-            <li>
-                <label for="password_confirmacion">Confirmacio de Password</label>
-                <input type="pass_conf" id="password_conf" name="user_password_conf" />
-            </li>
-            <li>
-                <label for="adress">Adreça Postal</label>
-                <input type="Adreça" id="adress" name="user_adress" />
-            </li>
-        </ul>
+        <div>
+            <label for="name">Nom:</label>
+            <input type="text" id="name" name="user_name" />
+            <div id="name-error" class="error-message"></div>
+        </div>
+        <div>
+            <label for="mail">Correu electrònic:</label>
+            <input type="email" id="mail" name="user_mail" />
+            <div id="mail-error" class="error-message"></div>
+        </div>
+        <div>
+            <label for="password">Contrasenya:</label>
+            <input type="password" id="password" name="user_password" />
+            <div id="password-error" class="error-message"></div>
+        </div>
+        <div>
+            <label for="password_confirmacion">Confirmacio de Password:</label>
+            <input type="password" id="password_conf" name="user_password_conf" />
+            <div id="password-conf-error" class="error-message"></div>
+        </div>
+        <div>
+            <label for="adress">Adreça Postal:</label>
+            <input type="text" id="adress" name="user_adress" />
+            <div id="address-error" class="error-message"></div>
+        </div>
         <button type="submit">Registrar</button>
     </form>
 
